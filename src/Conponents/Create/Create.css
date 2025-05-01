@@ -1,0 +1,135 @@
+  
+  /* Create Component Styling */
+  .Create-container{
+    width: 100% !important;
+    height: 100vh;
+    background: linear-gradient(#fff, #d9e8f7);
+    overflow-y: scroll;
+  }
+  .Create {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Full Container Styling */
+  .full-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .real-container {
+    background-color: #fff;
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    border-radius: 10px;
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); */
+  }
+  
+  /* Image Container Styling */
+  .img-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .img-container input{
+    display: none;
+  }
+
+  
+  .img-container .choose-file{
+    padding: 10px 20px;
+    background-color: #0066cc;
+    text-wrap: nowrap;
+    color: #fff;
+  }
+  .img-container .choose-file:nth-child(2){
+    background-color: #e66b71;
+  }
+  
+  .preview-img {
+    margin-top: 50px;
+    width: 90%;
+    /* max-width: 300px; */
+    height: 260px;
+    object-fit: cover;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+  }
+  
+  .sides {
+    gap: 30px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    /* background-color: red; */
+    padding: 10px;
+  }
+  .slides {
+    gap: 30px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 80%;
+    /* background-color: red; */
+    padding: 10px;
+  }
+
+
+  .choose-file {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 20px;
+    padding: 10px;
+  }
+  
+  .choose-file label {
+    cursor: pointer;
+    font-size: 16px;
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .choose-file img {
+    height: 20px;
+    cursor: pointer;
+    object-fit: cover;
+  }
+  
+
+  
+  .input-fields label {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .input-fields textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: none;
+  }
+  
+  .input-fields button {
+    background-color: #0066cc;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .input-fields button:hover {
+    background-color: #004d99;
+  }
+ 

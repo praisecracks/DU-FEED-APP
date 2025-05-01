@@ -1,0 +1,183 @@
+*{
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+    
+}
+
+.MyBlogs {
+    /* padding: 20px; */
+    /* max-width: 900px; */
+    /* margin: 0 auto;/ */
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    margin-top: 20px
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+  }
+  
+  /* Header Styling */
+  .head {
+    top: 0%;
+    position: fixed;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 78px;
+    background-color: #faf8f8;
+  }
+  
+  .head h5 {
+    font-size: 25px;
+    color: #333;
+    text-wrap: nowrap;
+}
+@media (max-width:480px) {
+  .head{
+    justify-content: space-between;
+  }
+  .head h5{
+    font-size: 20px;
+  }
+}
+.head img{
+    width: 30px;
+    margin-left: 20px;
+  }
+  .head img:nth-child(2){
+    /* background-color: red; */
+    width: 20px;
+    position: absolute;
+    z-index: 10;
+    margin: 5px 0px 0px -50px;
+  }
+  .head input {
+    width: 250px;
+    height: 40px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-right: 20px;
+    border-radius: 30px;
+    background-color: #c7c5c5;
+    border: none;
+    outline: none;
+  }
+  
+  /* Blog List Styling */
+  .mid{
+    
+    align-items: center;
+    justify-self: unset;
+    justify-content: center;
+    display: flex;
+  }
+  .blogs-list {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 70%;
+    /* background-color: #3d87d1; */
+  }
+  @media (max-width: 768px) {
+    .blogs-list{
+      width: 90%;
+      gap: 30px;
+    }
+  }
+  
+  .blog-card {
+    background-color: #fff;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+  
+  .blog-card h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .blog-card p {
+    margin: 5px 0;
+    color: #666;
+  }
+  .blogs-list .blog-text{
+    text-align: left;
+  }
+  .actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .actions button {
+    padding: 7px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3d87d1;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .actions button:nth-child(2){
+    background-color: #f17373;
+  }
+  .actions button:nth-child(2):hover{
+    background-color: #eb4747;
+  }
+  .actions button:nth-child(1){
+    background-color: #07d333;
+  }
+  .actions button:nth-child(1):hover{
+    background-color: #049924;
+  }
+  .actions button:active{
+    transform: scale(1.02);
+  }
+  
+  .actions button:hover {
+    background-color: #004d99;
+  }
+
+  
+  /* No Blogs Message */
+  .no-blogs {
+    text-align: center;
+    color: #666;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+
+  .actions button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    outline: none;
+  }
+  .actions button img{
+    width: 20px;
+    height: 20px;
+  }
+  .blogs-list p{
+    color: #585757;
+    font-size: 15px;
+  }
+  .blogs-list .image-connect img{
+    margin-top: 20px;
+    width: 100%;
+    object-fit: cover;
+    height: 300px;
+    border-radius: 20px;
+    background-color: #4a4848;
+  }
+/* 
+  yeah admin page, student page. 
+for admin now it will have notification page to check pending post of the student that should be approve or decline, profile page setting page . my blog page
+for student it will have the list of the page the admin have except from the notification page  */

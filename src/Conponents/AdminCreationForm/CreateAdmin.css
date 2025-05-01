@@ -1,0 +1,36 @@
+.create-admin-page{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    /* background-color: red; */
+    padding-top: 30px;
+}
+.create-admin-page form{
+    /* background-color: rgb(243, 248, 243); */
+    padding: 40px 30px;
+    display: grid;
+    width: 60%;
+    gap: 20px;
+    margin-top: 60px;
+}
+.create-admin-page input{
+    height: 40px;
+    padding: 15px;
+    width: 100%;
+    outline: navajowhite;
+    background: #ecf3fe;
+}
+@media (min-width:1000px) {
+    .create-admin-page form{
+        /* background-color: blue; */
+        display: grid;
+
+        width: 40%;
+    }
+}
+@media (max-width:600px) {
+    .create-admin-page form{
+        width: 80%;
+    }
+}

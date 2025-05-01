@@ -1,0 +1,272 @@
+.UserBlog{
+    width: 100%;
+    height: 100vh;
+    background-color: green;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.UserBlog-container{
+    width: 90%;
+    height: 90%;
+    background-color: blue;
+    display: block;
+    justify-content: center;
+}
+.UserBlog-container .back-directory{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: left;
+    background-color: red;
+    height: 20px;
+}
+.UserBlog-container .post-body{
+    justify-content: center;
+    display: flex;
+    background-color: black;
+    height: 100%;
+    width: 100%;
+}
+
+.head .div h5{
+    color: #109603;
+}
+
+
+.image-connect {
+  width: 100%; /* Full width of the parent */
+  max-width: 1200px; /* Optional: limit the max width */
+  aspect-ratio: 16 / 9; /* Maintain a rectangular aspect ratio */
+  border: 3px solid #f1c40f; /* Gold border */
+  border-radius: 12px; /* Rounded corners */
+  overflow: hidden; /* Prevent the image from spilling outside */
+  margin: 20px auto; /* Center the banner horizontally */
+  background-color: #779cf4; /* Fallback background color */
+  box-shadow: 0 4px 10px rgba(0, 0, 10, 0.25); 
+  padding: 10px 0px;
+}
+
+.image-connect img {
+    width: 100%;
+    margin: 0 !important;
+    height: 100% !important;
+    object-fit: contain !important; 
+    object-position: center; 
+    display: block; 
+    border-radius: 10px;
+}
+.userBlog-container{
+    /* background-color: purple; */
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    padding: 20px;
+    align-items: start;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: -30px;
+}
+.blogs-list{
+    /* background-color: red; */
+    padding: 10px;
+    width: 50%;
+    margin-top: 0px;
+}
+.chat-container{
+    background-color: #f1f3f9;
+    padding: 10px;
+    width: 50%;
+    height: 80vh;
+    margin-top: 20px;
+}
+.actions{
+    display: flex;
+    flex-wrap: nowrap;
+    text-wrap: nowrap;
+    
+}
+@media (max-width:768px) {
+    .actions{
+        display: grid;
+    }
+}
+@media (max-width: 700px) {
+    .userBlog-container{
+        width: 100%;
+        height: 100vh;
+        display: grid;
+        padding: 20px;
+        align-items: center;
+        justify-content: center;
+        /* background-color: rgb(0, 128, 19); */
+    }
+    .blogs-list{
+        /* background-color: red; */
+       
+        width: 100%;
+        
+        margin-top: 10px;
+    }
+    .chat-container{
+        margin-bottom: 200px;
+        background-color: rgb(250, 250, 249);
+        box-shadow: 0px 0px 10px #c2c0c0;
+        border-radius: 10px;
+        padding: 10px;
+        width: 100%;
+        height: 50vh;
+        margin-top: 20px;
+    }
+}
+.chat-container .chat-box{
+    background-color: #f2eaea;
+    padding: 20px;
+    height: 90%;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-radius: 20px;
+}
+.chat-box::-webkit-scrollbar{
+    display: none;
+}
+/*  */
+.chat-input input{
+    padding-left: 30px;
+width: 100%;
+    height: 40px;
+    outline: none;
+    border: none;
+    background: #fff;
+    color: #02258e;
+    border-radius: 20px;}
+.chat-input textarea::placeholder{
+    color: #779cf4;
+}
+.chat-input button{
+    border: none;
+    outline: none;
+    width: 100px;
+    border-radius: 30px;
+    margin-top: -5px;
+}
+
+.chat-container {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    margin-top: 15px;
+  }
+  
+  .chat-box {
+    height: 200px;
+    overflow-y: scroll;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .chat-input {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .chat-input textarea {
+    flex: 1;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    height: 50px;
+    resize: none;
+    overflow-y: scroll;
+    outline: navajowhite;
+  }
+  .chat-input textarea::-webkit-scrollbar{
+    display: none;
+  }
+  
+  .chat-input button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 4px 12px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+
+
+
+  
+  .message {
+    padding: 5px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .timestamp {
+    font-size: 0.8em;
+    color: #777;
+  }
+  
+  .chat-input {
+    display: flex;
+    gap: 10px;
+  }
+  
+  
+  .chat-input button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .tooltip-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip-text {
+    visibility: hidden;
+    width: 180px;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    bottom: 150%;  /* Adjusts tooltip position */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .tooltip-wrapper:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+  .delete-comment-btn{
+    align-items: center;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    height: 30px;
+  }
+  .no-comments{
+    color: #777;
+  }
+  .blog-delete-btn{
+    width: 100%;
+    background: transparent;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }

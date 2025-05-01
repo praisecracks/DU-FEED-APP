@@ -1,0 +1,239 @@
+
+*{
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+
+}
+.AboutHeader{
+    background-color: #363636;
+    display: flex;
+    width: 100%;
+    height: 80px;
+}
+.AboutHeader nav{
+    /* background-color: yellow; */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.AboutHeader nav .logo{
+    margin-left: 30px;
+    font-size: 20px;
+    color: #d1cece;
+}
+.AboutHeader nav ul li img{
+    width: 20px;
+}
+.AboutHeader nav ul{
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    margin-right: 20px;
+}
+.AboutHeader nav ul li{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.AboutHeader nav ul li:hover{
+    padding: 10px 15px;
+    transition: 0.2s all linear;
+    border-radius: 20px;
+    background-color: #3334;
+}
+.AboutHeader nav ul li:nth-child(2){
+    background-color: #0763be;
+    text-wrap: nowrap;
+    padding: 0px 10px;
+    gap: 5px;
+    width: 110px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    color: #fff;
+}
+p{
+    color: #363636;
+}
+.AboutHeader nav ul li a{
+    text-decoration: none;
+    font-size: 16px;
+    color: #d1cece;
+    font-weight: 700;
+}
+.AboutHeader nav ul li a:nth-last-child(){
+    color: #fff;
+
+}
+.Mission-body{
+    width: 100%;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    /* height: 80vh; */
+    margin-top: 40px;
+    /* background-color: red; */
+}
+.Mission-body .flow{
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background: linear-gradient(to right, #0763bee1, #d1cecef8), url("../../Asset/Book study.jpg");
+    background-size: cover;
+    background-position: center;    
+    color: #fff;
+    padding-bottom: 20px;
+    }
+.mission{
+    margin-top: 50px;
+    width: 80%;
+    /* background-color: red; */
+    display: grid;
+    /* gr-color: red; */
+    align-items: center;
+    justify-content: center;
+}
+.values ul li{
+    color: #363636;
+    margin-bottom: 10px;
+    margin-left: 30px;
+}
+.mission h1{
+    font-size: 2rem;
+    text-align: center;
+}
+.mission p{
+    text-align: center;
+    color: #363636;
+    margin-top: 20px;
+}
+@media (min-width: 768px) {
+    .mission{
+        width: 60%;
+    }
+    .mission p{
+
+        text-align: center;
+    }
+}
+.load{
+    width: 50%;
+    margin-top: 100px;
+    /* background-color: red; */
+}
+.mid{
+    margin-top: 80px;
+    display: flex;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+.mid .load h2{
+    text-align: left;
+}
+.mid .load p{
+    text-align: left;
+}
+@media (max-width: 600px) {
+    .load{
+        width: 85%;
+        /* background-color: #444; */
+    }
+}
+
+.carrier{
+    /* background-color: blue; */
+    /* height: 40vh; */
+    width: 100%;
+    align-items: flex-end;
+    justify-content: center;
+    display: flex;
+    margin-top: 200px;
+}
+
+.carrier .carr{
+    width: 85%;
+    /* background-color: red; */
+}
+@media (min-width :768px) {
+    .carrier .carr{
+        width: 60%;
+    }
+}
+.team{
+    /* height: 90vh; */
+    margin-top: 100px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    background-color: rgb(62, 152, 231);
+    justify-content: center;
+} 
+.team-body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: green; */
+
+}
+.team .team-heading{
+    width: 60%;
+    /* background-color: red; */
+}
+.team .team-heading h2, p{
+    text-align: center;
+}
+@media (max-width: 600px) {
+    .team{
+        width: 100%;
+        /* background-color: #444; */
+    }
+}
+.image-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* height: 20vh; */
+    /* background-color: orange; */
+    margin-top: 20px;
+}
+.image-container .listed-host{
+    width: 80%;
+    margin-top: 40px;
+    /* background-color: blue; */
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+.image-container .listed-host .hostOne{
+    width: 200px;
+    height: 100%;
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+.image-container .listed-host .hostOne img{
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+}
+.image-container .listed-host .hostOne h3{
+    color: #363636;
+    margin-top: 10px;
+}
+.image-container .listed-host .hostOne span{
+    margin-top: 5px;
+    color: #363636;
+}
+

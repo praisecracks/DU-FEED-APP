@@ -1,0 +1,247 @@
+*{
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+}
+.login{
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    /* height: 100vh; */
+    background-color: #ebebeb;
+}
+
+.bth img:nth-child(2){
+    width: 120px;
+    height: 120px;
+    margin:10px 0px 40px 30px;
+    /* border-radius: 100%; */
+}
+.login .form-container{
+    width: 90%;
+    height: 80%;
+    margin-top: 40px;
+    /* background-color: red; */
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+.form-image{
+    width: 50%;
+    height: 90vh;
+    background-color: #5e7af7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+.form-image .form-img .bth{
+    margin-top: 10px;
+        display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+}
+.form-image .inner-t{
+    padding: 10px 20px 40px 20px;
+}
+.form-image .inner-t h2{
+    padding-bottom: 15px;
+    color: #ffff;
+}
+.form-image p{
+    color: #e4e1e1;
+    text-align: left;
+}
+.form-image .form-img .bth button{
+    text-wrap: nowrap;
+    background-color: rgb(1, 3, 73);
+   
+}
+.form-img .bth button:active{
+    padding: 10px 10px 10px 0px;
+    transition: 1s;
+}
+@media (min-width: 768px) {
+    .form-img .bth button{
+        margin-top: 50px;
+        
+    }
+}
+.form-image img{
+    width: 500px;
+    height: 350px;
+    /* margin-top: -30px; */
+    margin-left: 50px;
+}
+@media (max-width: 500px) {
+    .form-image img{
+        width: 300px;
+        margin-left: 35px;
+    }
+}
+.form-image img:nth-child(1){
+    width: 90%;
+    margin-left: 0%;
+    border-radius: 5px;
+
+}
+.form-field{
+    width: 50%;
+    height: 90vh;
+    background-color: #fff;
+}
+
+@media (max-width: 900px) {
+    .form-image{
+        width:100%;
+        height: 100vh;
+        /* background-color: blue; */
+    }
+    .form-field{
+        width:100%;
+        height: 100vh;
+    }
+}
+.form-field .form-title h1{
+    text-align: center;
+    margin-top: 70px;
+    font-size: 35px;
+}
+.form-field .form-title p{
+    text-align: center;
+    padding-top: 10px;
+    color: #575656;
+    font-size: 15px;
+}
+.form-field p a{
+    color: #0a33eb;
+    cursor: pointer;
+    text-decoration: none;
+}
+.sign-with{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 30px;
+}
+.google, .github{
+    width: 130px;
+    height: 40px;
+    color: #5e7af7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f0f0;
+    border-radius: 30px;
+    gap: 10px;
+}
+.github img{
+    width: 20px;
+}
+.inputs label{
+    color: #092fda;
+}
+.inputs{
+    display: grid;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    gap: 10px;
+}
+.inputs .input{
+    line-height: 30px;
+}
+.inputs .input input{
+    width: 350px;
+    height: 45px;
+    border: none;
+    outline: none;
+    background-color: #e9e5e5;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 40px;
+}
+.inputs button{
+    height: 50px;
+    color: #fff;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: #5e7af7;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+.forget{
+    font-size: 13px;
+    color: #707070;
+    padding: 5px;
+    /* background-color: green; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.forget a{
+    text-align: flex-end;
+    color: #ff1e00;
+    font-size: 13px;
+    text-decoration: none;
+    margin-left: 20px;
+
+}
+.appreciation{
+    text-align: left;
+    font-size: 14px;
+    margin-top: -20px;
+    display: flex;
+    left: 10px;
+}
+.inputs .input img{
+    width: 15px;
+    height: 15px;
+    margin-left: -30px;
+    margin-bottom: -5px;
+}
+.contRealImage{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    /* background-color: green; */
+    border-radius: 20px;
+    margin: -50px 0px 30px 0px;
+}
+
+.contRealImage img{
+    width: 100%;
+    /* background-color: red; */
+    /* padding: 10px; */
+}
+.inner-t .intro-btn {
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    /* background-color: red; */
+    position: absolute;
+    padding: 10px;
+    margin-left: -10px;
+}
+.inner-t .intro-btn button{
+    width: 130px;
+    background-color: #092fda;
+    text-wrap: nowrap;
+    display: flex;
+    justify-content: center;
+
+}
+.input-iconic{
+    display: flex;
+    right: -350px;
+    position: relative;
+    top: -30px;
+    cursor: pointer;
+}
