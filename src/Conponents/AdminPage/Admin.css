@@ -1,4 +1,4 @@
-/* Updated Admin.css */
+Updated Admin.css
 * {
   padding: 0;
   margin: 0;
@@ -107,7 +107,6 @@
   overflow-y: auto;
   padding: 10px;
   border: 1px solid #ddd;
-  /* background-color: red; */
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -126,7 +125,6 @@
   margin-top: 10px;
 }
 
-/* Updated Navigation Bar Buttons */
 nav ul {
   display: flex;
   gap: 15px;
@@ -137,16 +135,17 @@ nav ul li a {
   display: inline-flex;
   align-items: center;
   padding: 10px 20px;
-  color:  #6a11cb ;
+  color:  #373e51 ;
   /* color: white; */
   text-decoration: none;
   border-radius: 5px;
   font-size: 14px;
   transition:  0.5s;
+  font-weight: 500;
 }
 
 nav ul li a:hover {
-  background: linear-gradient(90deg, #4c00a8, #0056d9);
+  /* background: linear-gradient(90deg, #4133ff, #4389f1); */
   color: white;
 }
 
@@ -351,4 +350,16 @@ background: #2575fc;
   margin-top: 10px;
   background-color: rgb(94, 143, 248);
   color: #fff;
+}
+.recycle-bin{
+  position: fixed;
+  right: 5px;
+  bottom: 5px;
+  width: 300px;
+  margin-Top: 50px;
+  padding: 20px;
+  background: #ffebee;
+  border: 2px dashed #f44336;
+  text-Align: center;
+  border-radius: 8px;
 }

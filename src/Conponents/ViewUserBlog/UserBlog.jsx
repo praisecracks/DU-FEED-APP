@@ -142,8 +142,8 @@ function UserBlog() {
               <img src={data.image} alt="Blog Post" className="w-full h-64 object-cover rounded-lg mb-4" />
             )}
             <h2 className="text-2xl font-bold mb-2">{data.title}</h2>
-            <p className="text-sm text-gray-500 mb-4">{date?.toLocaleString()}</p>
-            <p className="text-gray-700 mb-6">{data.desc}</p>
+            <p  className="text-sm text-gray-500 mb-4 text-left">{date?.toLocaleString()}</p>
+            <p className="text-gray-700 mb-6 text-left">{data.desc}</p>
             <div className="flex flex-wrap gap-4">
               <button
                 onClick={handleLike}
@@ -171,18 +171,19 @@ function UserBlog() {
             <div className="space-y-4 max-h-[400px] overflow-y-auto mb-4">
               {data?.comments && data.comments.length > 0 ? (
                 data.comments.map((msg, index) => (
-                  <div key={index} className="border p-3 rounded-md relative">
+                  <div key={index} className=" p-3 rounded-md relative text-left">
                     <div className="font-semibold">{msg.displayName}</div>
-                    <p className="text-gray-700">{msg.text}</p>
+                    <p className="text-gray-600 text-left">{msg.text}</p>
                     <small className="text-gray-400">
                       {msg.timestamp?.toDate ? msg.timestamp.toDate().toLocaleString() : new Date(msg.timestamp).toLocaleString()}
                     </small>
-                    <button
-                      onClick={() => handleDeleteComment(msg)}
-                      className="absolute top-2 right-2 bg-transparent text-black-800 hover:text-red-700"
-                    >
-                      <FaTrash className="w-4 h-4 " />  {/* ✅ updated to icon */}
-                    </button>
+                   <button
+                        onClick={() => handleDeleteComment(msg)}
+                        className="absolute top-2 right-2 text-red-500 hover:text-red-700 bg-transparent"
+                      >
+                        <FaTrash className="w-4 h-4" />
+                      </button>
+
                   </div>
                 ))
               ) : (

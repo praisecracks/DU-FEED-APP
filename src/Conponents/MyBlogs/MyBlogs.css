@@ -177,7 +177,8 @@
     border-radius: 20px;
     background-color: #4a4848;
   }
-/* 
-  yeah admin page, student page. 
-for admin now it will have notification page to check pending post of the student that should be approve or decline, profile page setting page . my blog page
-for student it will have the list of the page the admin have except from the notification page  */
+.top-up{
+  margin-top: 20px;
+  font-weight: 600;
+
+}

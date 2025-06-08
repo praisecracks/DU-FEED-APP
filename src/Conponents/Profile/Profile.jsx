@@ -1,13 +1,14 @@
-
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useUser } from "../../Context/UserContext"; 
-import { EmailAuthProvider, getAuth, reauthenticateWithCredential, signOut, updateProfile } from 'firebase/auth';
+import { useUser } from "../../Context/UserContext";
+import { EmailAuthProvider, getAuth, reauthenticateWithCredential, signOut, updateProfile, updateEmail } from 'firebase/auth';
 import { collection, doc, onSnapshot, query, updateDoc, getDoc } from 'firebase/firestore';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { toast } from "react-toastify";
 import { auth, db } from "../../Context/Firebase";
+
+import { FaSun, FaMoon, FaCamera, FaTrash, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 
 function Profile() {
   const { currentUser } = useUser();
@@ -16,11 +17,11 @@ function Profile() {
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [notifications, setNotifications] = useState({ email: false, push: false });
-  const [darkMode, setDarkMode] = useState(false); // 🌙 dark mode state
+  const [darkMode, setDarkMode] = useState(false);
   const [userData, setUserData] = useState({
     name: currentUser?.displayName,
     email: currentUser?.email,
-    profilePicture: currentUser?.photoURL || '/default-profile.jpg',
+    profilePicture: currentUser?.photoURL || '/Profile.svg',
   });
 
   useEffect(() => {
@@ -41,7 +42,6 @@ function Profile() {
     return () => unsubscribe();
   }, [currentUser?.uid]);
 
-  // 🔁 Apply dark mode class
   useEffect(() => {
     document.body.classList.toggle('dark', darkMode);
   }, [darkMode]);
@@ -110,11 +110,16 @@ function Profile() {
     }
   };
 
-  const handleDeletePicture = () => {
-    setUserData((prev) => ({
-      ...prev,
-      profilePicture: '/default-profile.jpg',
-    }));
+  const handleDeletePicture = async () => {
+    try {
+      const user = auth.currentUser;
+      await updateProfile(user, { photoURL: '/Profile.svg' });
+      await updateDoc(doc(db, "Users", user.uid), { profilePicture: '/Profile.svg' });
+      setUserData(prev => ({ ...prev, profilePicture: '/Profile.svg' }));
+      toast.success("Profile picture deleted.");
+    } catch (error) {
+      toast.error("Failed to delete profile picture.");
+    }
   };
 
   const handleSave = async () => {
@@ -133,12 +138,13 @@ function Profile() {
           const credential = EmailAuthProvider.credential(currentUser.email, password);
           await reauthenticateWithCredential(user, credential);
 
-          await user.updateEmail(userData.email);
+          await updateEmail(user, userData.email);
           await updateDoc(doc(db, "Users", user.uid), { email: userData.email });
 
           toast.success("Email updated successfully!");
         } else {
           toast.info("Email change cancelled.");
+          return;
         }
       }
 
@@ -174,45 +180,56 @@ function Profile() {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="profile-container  mx-auto p-6 bg-gray-900 min-h-screen w-100">
       <div className="flex items-center justify-between mb-6">
-        <Link to="/home" className="text-blue-500">Home</Link>
+        <Link to="/home" className="text-blue-600 hover:text-blue-900 font-medium transition">← Back to Home</Link>
+      
       </div>
 
-      <div className="flex flex-col md:flex-row items-center mb-6">
-        <div className="relative">
-          <img className="w-32 h-32 rounded-full object-cover" src={userData.profilePicture} alt="Profile" />
+      <div className="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-xl flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12">
+        <div className="relative group">
+          <img
+            className="w-36 h-36 md:w-40 md:h-40 rounded-full object-cover border-4 border-blue-500 shadow-lg"
+            src={userData.profilePicture}
+            alt="Profile"
+          />
           {isEditing && (
             <>
-              <label htmlFor="file" className="absolute bottom-0 right-0 bg-gray-800 text-white p-1 rounded-full">
+              <label
+                htmlFor="file"
+                className="absolute bottom-2 right-2 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full cursor-pointer shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                title="Change Profile Picture"
+              >
                 <input type="file" id="file" accept="image/*" onChange={handlePictureChange} className="hidden" />
-                <span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-</svg>
-
-                </span>
+                <FaCamera size={18} />
               </label>
-              <button onClick={handleDeletePicture} className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-</svg>
-
+              <button
+                onClick={handleDeletePicture}
+                className="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white p-3 rounded-full shadow-lg transition"
+                title="Delete Profile Picture"
+              >
+                <FaTrash size={18} />
               </button>
             </>
           )}
         </div>
 
-        <div className="ml-6 flex-1">
+        <div className="flex-1 w-full max-w-lg">
+          <div className="flex items-center gap-3 flex-wrap">
+            <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white">{userData.name}</h2>
+            <span className="bg-green-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-sm select-none">Active</span>
+          </div>
+          <p className="mt-1 text-gray-600 dark:text-gray-300 break-words">{userData.email}</p>
+
           {isEditing ? (
-            <div className="flex gap-4">
+            <div className="mt-6 space-y-4">
               <input
                 type="text"
                 name="name"
                 value={userData.name}
                 onChange={handleInputChange}
                 placeholder="Name"
-                className="border p-2 mb-4 rounded"
+                className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
               />
               <input
                 type="email"
@@ -220,51 +237,71 @@ function Profile() {
                 value={userData.email}
                 onChange={handleInputChange}
                 placeholder="Email"
-                className="border p-2 mb-4 rounded"
+                className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
               />
-              <button onClick={handleSave} className="bg-blue-500 text-white rounded">Save</button>
-              
+              <div className="flex justify-end gap-4">
+                <button
+                  onClick={() => setIsEditing(false)}
+                  className="px-6 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleSave}
+                  className="px-6 py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
+                >
+                  Save Changes
+                </button>
+              </div>
             </div>
           ) : (
-            <>
-              <h2 className="text-xl font-semibold">{userData.name}</h2>
-              <p>{userData.email}</p>
-              <button onClick={handleEditToggle} className="text-blue-500 mt-2">Edit Profile</button>
-            </>
+            <button
+              onClick={handleEditToggle}
+              className="mt-6 px-6 py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
+            >
+              Edit Profile
+            </button>
           )}
+
+          <div className="mt-8">
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">Notification Settings</h3>
+            <div className="flex flex-col gap-3 max-w-sm">
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={notifications.email}
+                  onChange={() => handleNotificationChange('email')}
+                  className="form-checkbox h-5 w-5 text-blue-600"
+                />
+                <span className="text-gray-700 dark:text-gray-300">Email Notifications</span>
+              </label>
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={notifications.push}
+                  onChange={() => handleNotificationChange('push')}
+                  className="form-checkbox h-5 w-5 text-blue-600"
+                />
+                <span className="text-gray-700 dark:text-gray-300">Push Notifications</span>
+              </label>
+            </div>
+          </div>
+
+          <div className="mt-12 flex flex-col md:flex-row gap-4 md:gap-6">
+            <button
+              onClick={handleDeleteAccount}
+              className="flex-1 py-3 rounded-lg bg-red-600 text-white font-semibold hover:bg-red-700 transition"
+            >
+              Delete Account
+            </button>
+            <button
+              onClick={handleLogOut}
+              className="flex-1 py-3 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+            >
+              Log Out
+            </button>
+          </div>
         </div>
-      </div>
-
-      <div className="bg-white p-4 rounded-md shadow-md mb-6">
-        <h2 className="text-lg font-semibold">Profile Details</h2>
-        <ul className="mt-4">
-          <li><strong>Username:</strong> {currentUser?.displayName}</li>
-          <li><strong>Email:</strong> {currentUser?.email}</li>
-          <li><strong>Joined:</strong> {new Date(User?.RegisteredTime).toLocaleString()}</li>
-        </ul>
-      </div>
-
-      <div className="bg-white p-4 rounded-md shadow-md mb-6">
-        <h2 className="text-lg font-semibold">Notification Settings</h2>
-        <label className="block mb-2">
-          <input type="checkbox" checked={notifications.email} onChange={() => handleNotificationChange("email")} className="mr-2" />
-          Enable Email Notifications
-        </label>
-        <label>
-          <input type="checkbox" checked={notifications.push} onChange={() => handleNotificationChange("push")} className="mr-2" />
-          Enable Push Notifications
-        </label>
-      </div>
-
-      <div className="mb-6">
-        <button onClick={handleDarkModeToggle} className="bg-gray-800 text-white p-2 rounded-[5px]">
-          {darkMode ? 'Light Mode' : 'Dark Mode'}
-        </button>
-      </div>
-
-      <div className="flex gap-4">
-        <button onClick={handleDeleteAccount} className="bg-red-500 text-white p-2 rounded-[5px]">Delete Account</button>
-        <button onClick={handleLogOut} className="bg-gray-800 text-white p-2 rounded-[5px]">Log Out</button>
       </div>
     </div>
   );

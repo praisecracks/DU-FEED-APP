@@ -31,8 +31,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/setting" element={<Setting />} />
         <Route path="/edit/:id" element={<Edit />} /> {/* Corrected this route */}
-        <Route path="/profile/:id" element={<UserProfile />} /> {/* Updated this route */}
-
+<Route path="/UserProfile/:userId" element={<UserProfile />} />
         {/* ADMIN ROUTES */}
         <Route path="/admin" element={<Admin />} />
         <Route path="/adminform" element={<AdminForm />} />

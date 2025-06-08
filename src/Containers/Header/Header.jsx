@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import { BsMenuButtonWide } from "react-icons/bs";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../Context/Firebase";
-import ProfileImage from "../../Asset/white profile.png";
+import ProfileImage from "../../Asset/admin.png";
 import admin from "../../Asset/admin.png";
+import domi from "../../Asset/dominion_logo.png";
 import { AiOutlineHome, AiOutlineInfoCircle } from "react-icons/ai";
 import { MdCreate, MdOutlineArticle } from "react-icons/md";
 import { FaUserShield, FaUserPlus, FaSignInAlt } from "react-icons/fa";
@@ -39,103 +40,109 @@ function Header() {
     }
     fetchUserData();
   }, [currentUser]);
-console.log(currentUser)
+
+  console.log(currentUser);
   const toggleMenu = () => setMenuOpen((prev) => !prev);
 
   const isLoggedIn = !!currentUser;
 
   return (
-    <header className="w-full bg-white shadow-md fixed top-0 left-0 z-50">
-      <div className="flex items-center justify-between max-w-7xl mx-auto px-4 py-3">
-        {/* Logo */}
-        <Link to="/" className="flex items-center text-2xl font-bold text-black space-x-1">
-          <span className="font-fantasy tracking-widest text-3xl">DU</span>
-          <span className="text-primary">FEED</span>
-        </Link>
+   <header className="w-full fixed top-0 left-0 z-50 backdrop-blur-md bg-white/80 shadow-md transition-all duration-300">
+  <div className="max-w-7xl mx-auto flex items-center justify-between px-5 py-3">
+    
+    {/* Logo */}
+    <Link to="/" className="flex items-center text-3xl font-bold tracking-wide ">
+  <span style={{color: "#61593b"}} className="font-extrabold text-4xl font-serif">DU</span>
+  <span className="ml-1 text-blue-600 font-sans">FEED</span>
+  <span className="h-10 w-10"><img src={domi} alt="" /></span>
+</Link>
 
-        {/* Mobile menu button */}
-        <button 
-          onClick={toggleMenu} 
-          className="lg:hidden text-2xl text-primary focus:outline-none"
-        >
-          <BsMenuButtonWide />
-        </button>
 
-        {/* Nav Links */}
-        <nav className={`absolute lg:relative top-full left-0 w-full lg:w-auto bg-white lg:bg-transparent transition-all duration-300 ease-in-out ${menuOpen ? 'max-h-screen' : 'max-h-0 overflow-hidden lg:max-h-full'}`}>
-          <ul className="flex text-black flex-col lg:flex-row items-center gap-4 p-4 lg:p-0">
+    {/* Hamburger Menu */}
+    <button
+      onClick={toggleMenu}
+      className="lg:hidden text-3xl text-indigo-700 hover:text-blue-600 transition-all"
+    >
+      <BsMenuButtonWide />
+    </button>
+
+    {/* Nav Links */}
+    <nav
+      className={`absolute lg:static top-full left-0 w-full lg:w-auto bg-white/95 backdrop-blur-sm border-t lg:border-none shadow-md lg:shadow-none transition-all duration-300 ease-in-out ${
+        menuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 lg:max-h-full lg:opacity-100"
+      } overflow-hidden lg:overflow-visible`}
+    >
+      <ul className="flex flex-col lg:flex-row items-center lg:gap-6 gap-4 p-5 lg:p-0 text-gray-800 font-medium text-base">
+        <li>
+          <NavLink to="/home" className="flex items-center gap-2 hover:text-indigo-600 transition">
+            <AiOutlineHome /> Dashboard
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/about" className="flex items-center gap-2 hover:text-indigo-600 transition">
+            <AiOutlineInfoCircle /> About
+          </NavLink>
+        </li>
+
+        {isLoggedIn && (
+          <>
             <li>
-              <NavLink to="/home" className="flex items-center gap-2 ">
-                <AiOutlineHome /> Dashboard
+              <NavLink to="/create" className="flex items-center gap-2 hover:text-indigo-600 transition">
+                <MdCreate /> Create
               </NavLink>
             </li>
             <li>
-              <NavLink to="/about" className="flex items-center gap-2 hover:text-primary">
-                <AiOutlineInfoCircle /> About
+              <NavLink to="/blogs" className="flex items-center gap-2 hover:text-indigo-600 transition">
+                <MdOutlineArticle /> My Blogs
               </NavLink>
             </li>
+          </>
+        )}
 
-            {isLoggedIn && (
+        {!isLoading && (isAdmin || isSubAdmin) && (
+          <li>
+            <NavLink to="/admin" className="flex items-center gap-2 hover:text-indigo-600 transition">
+              <FaUserShield /> Admin Page
+            </NavLink>
+          </li>
+        )}
+
+        {!isLoading && isAdmin && (
+          <li>
+            <button
+              onClick={() => navigate("/createadmin")}
+              className="flex items-center gap-2 px-3 py-1.5 border border-indigo-600 text-indigo-600 rounded-full hover:bg-indigo-600 hover:text-white transition duration-200"
+            >
+              <FaUserPlus />
+              <img src={admin} alt="Admin Icon" className="w-5 h-5" />
+            </button>
+          </li>
+        )}
+
+        <li>
+          <NavLink
+            to={isLoggedIn ? "/profile" : "/login"}
+            className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-blue-600 text-white px-4 py-2 rounded-full hover:opacity-90 transition duration-300"
+          >
+            {isLoggedIn ? (
+              <img
+                src={currentUser?.photoURL || ProfileImage}
+                alt="Profile"
+                className="w-8 h-8 rounded-full object-cover border-2 border-white shadow"
+              />
+            ) : (
               <>
-                <li>
-                  <NavLink to="/create" className="flex items-center gap-2 hover:text-primary">
-                    <MdCreate /> Create
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/blogs" className="flex items-center gap-2 hover:text-primary">
-                    <MdOutlineArticle /> My Blogs
-                  </NavLink>
-                </li>
+                <FaSignInAlt /> Login
               </>
             )}
+          </NavLink>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-            {!isLoading && (isAdmin || isSubAdmin) && (
-              <li>
-                <NavLink to="/admin" className="flex items-center gap-2 hover:text-primary">
-                  <FaUserShield /> Admin Page
-                </NavLink>
-              </li>
-            )}
 
-            {!isLoading && isAdmin && (
-              <li>
-                <button
-                  onClick={() => navigate("/createadmin")}
-                  className="flex items-center gap-2 text-primary border-2 border-primary px-3 py-1 rounded-lg hover:bg-primary hover:text-white transition-all"
-                >
-                  <FaUserPlus /> 
-                  <img src={admin} alt="Admin Icon" className="w-6 h-6" />
-                </button>
-              </li>
-            )}
-
-            {/* Login/Profile */}
-            <li>
-              <NavLink
-                to={isLoggedIn ? "/profile" : "/login"}
-                className="flex items-center gap-2 bg-gradient-to-r from-[#4c00a8] to-[#0056d9] text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300"
-                >
-                {isLoggedIn ? (
-                  <div className="flex items-center space-x-2 bdrr-50 justify-center-center display-flex">
-                    <img
-                      src={currentUser?.photoURL || ProfileImage}
-                      alt="Profile"
-                      className="w-8 h-8 rounded-full object-cover br-100"
-                    />
-                  </div>
-                ) : (
-                  <>
-                    <FaSignInAlt />
-                    Login
-                  </>
-                )}
-              </NavLink>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </header>
   );
 }
 
