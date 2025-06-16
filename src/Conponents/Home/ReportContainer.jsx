@@ -4,15 +4,22 @@ import prof from "../../Asset/profileFilled.svg";
 import { truncate } from "../../Context/data";
 import { Link } from "react-router-dom";
 import { db } from "../../Context/Firebase";
+import { SunIcon, MoonIcon } from "@heroicons/react/24/solid";
+import {
+  HandThumbUpIcon,
+  HandThumbDownIcon,
+  ChatBubbleLeftRightIcon,
+} from "@heroicons/react/24/solid";
+
 import {
   collection,
   query,
   orderBy,
   limit,
   startAfter,
-  getDocs
+  getDocs,
 } from "firebase/firestore";
-import { useUser } from "../../Context/UserContext"; // Correct hook
+import { useUser } from "../../Context/UserContext";
 
 function ReportContainer() {
   const [data, setData] = useState([]);
@@ -20,8 +27,25 @@ function ReportContainer() {
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [fetchingMore, setFetchingMore] = useState(false);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const [searchTerm, setSearchTerm] = useState("");
+  
 
-  const { currentUser } = useUser(); // Corrected hook usage
+useEffect(() => {
+  if (theme === "dark") {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+  localStorage.setItem("theme", theme);
+}, [theme]);
+
+const toggleTheme = () => {
+  setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
+};
+
+
+  const { currentUser } = useUser();
   const isAdmin = currentUser?.role === "admin";
 
   const fetchBlogs = useCallback(async () => {
@@ -47,7 +71,7 @@ function ReportContainer() {
 
       const newData = snapshot.docs.map((doc) => ({
         ...doc.data(),
-        id: doc.id
+        id: doc.id,
       }));
 
       setData((prev) => [...prev, ...newData]);
@@ -70,18 +94,47 @@ function ReportContainer() {
     : data.filter((blog) => blog.isVerified === true);
 
   return (
-    <div className="w-full px-6 py-12 mt-10 bg-gradient-to-br from-gray-50 via-white to-gray-100 min-h-screen">
+<div className="w-full px-6 pt-28 pb-12 bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 min-h-screen transition-colors duration-500">
+    
+    <div className="w-full flex justify-between items-center gap-4 flex-wrap mb-3 mt-[-10px]">
+  <div className="flex-grow max-w-3xl mx-auto text-gray-600">
+    <input
+      type="text"
+      placeholder="Search news or events..."
+      className="w-full px-6 py-3 border border-gray-300 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:bg-gray-700 dark:text-white dark:border-gray-600 transition duration-200 color-gray-700"
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+    />
+  </div>
+
+  <button
+    onClick={toggleTheme}
+    className="p-3 bg-indigo-100 dark:bg-gray-700 rounded-full shadow transition hover:scale-105"
+    title="Toggle Theme"
+  >
+    {theme === "dark" ? (
+      <SunIcon className="w-6 h-6 text-yellow-400" />
+    ) : (
+      <MoonIcon className="w-6 h-6 text-gray-800" />
+    )}
+  </button>
+</div>
+
+
       {isLoading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 animate-pulse">
           {Array.from({ length: 6 }).map((_, idx) => (
-            <div key={idx} className="bg-white rounded-3xl shadow p-4 space-y-4 border">
-              <div className="bg-gray-200 h-48 w-full rounded-xl"></div>
-              <div className="h-5 bg-gray-200 rounded w-3/4"></div>
-              <div className="h-4 bg-gray-200 rounded w-full"></div>
-              <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+            <div
+              key={idx}
+              className="bg-white dark:bg-gray-800 rounded-3xl shadow p-4 space-y-4 border border-gray-200 dark:border-gray-700"
+            >
+              <div className="bg-gray-200 dark:bg-gray-700 h-48 w-full rounded-xl"></div>
+              <div className="h-5 bg-gray-200 dark:bg-gray-600 rounded w-3/4"></div>
+              <div className="h-4 bg-gray-200 dark:bg-gray-600 rounded w-full"></div>
+              <div className="h-4 bg-gray-200 dark:bg-gray-600 rounded w-5/6"></div>
               <div className="flex items-center space-x-3 mt-4">
-                <div className="h-8 w-8 bg-gray-300 rounded-full"></div>
-                <div className="h-4 w-1/2 bg-gray-200 rounded"></div>
+                <div className="h-8 w-8 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+                <div className="h-4 w-1/2 bg-gray-200 dark:bg-gray-600 rounded"></div>
               </div>
             </div>
           ))}
@@ -93,7 +146,7 @@ function ReportContainer() {
               visibleBlogs.map((blog) => (
                 <article
                   key={blog.id}
-                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition duration-500 flex flex-col overflow-hidden border border-transparent hover:border-indigo-400"
+                  className="group bg-white dark:bg-gray-800 rounded-3xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition duration-500 flex flex-col overflow-hidden border border-transparent hover:border-indigo-400 dark:hover:border-indigo-600"
                 >
                   {blog.image ? (
                     <div className="relative overflow-hidden rounded-t-3xl">
@@ -125,21 +178,21 @@ function ReportContainer() {
                       </div>
                     </div>
                   ) : (
-                    <div className="flex flex-col items-center justify-center h-30 bg-indigo-100 rounded-t-3xl text-indigo-600 p-6 text-center">
+                    <div className="flex flex-col items-center justify-center h-30 bg-indigo-100 dark:bg-indigo-800 rounded-t-3xl text-indigo-600 dark:text-indigo-200 p-6 text-center">
                       <h2 className="text-2xl font-extrabold mb-2 tracking-tight h-40">
                         DU Local News
                       </h2>
-                      <p className="text-lg font-light mt-[-20px] p-[-20]">
+                      <p className="text-lg font-light mt-[-20px]">
                         Image isn't available for this news.
                       </p>
                     </div>
                   )}
 
                   <div className="flex flex-col flex-grow p-2">
-                    <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-1">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-1">
                       {truncate(blog.title, 40)}
                     </h3>
-                    <p className="text-sm text-left text-gray-700 flex-grow mb-6 line-clamp-4">
+                    <p className="text-sm text-left text-gray-700 dark:text-gray-300 flex-grow mb-6 line-clamp-4">
                       {truncate(blog.desc || "", 150)}
                     </p>
                     <Link
@@ -150,42 +203,21 @@ function ReportContainer() {
                     </Link>
                   </div>
 
-                  <footer className="flex items-center justify-between px-6 py-4 bg-indigo-50 border-t border-indigo-100 text-indigo-700 font-medium text-sm">
+                  <footer className="flex items-center justify-between px-6 py-4 bg-indigo-50 dark:bg-indigo-900 border-t border-indigo-100 dark:border-indigo-800 text-indigo-700 dark:text-indigo-200 font-medium text-sm">
                     <div className="flex space-x-6 select-none">
                       <div className="flex items-center gap-1">
-                        <svg
-                          className="w-5 h-5 text-indigo-600"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M2 10a6 6 0 1111.452 4.391l3.527 2.208a.75.75 0 01-1.118.98l-3.92-3.13a6.004 6.004 0 01-9.941-4.449z" />
-                        </svg>
+                       <HandThumbUpIcon className="w-5 h-5 text-indigo-600 dark:text-indigo-300" />
+
                         <span>{blog.likes?.length || 0}</span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <svg
-                          className="w-5 h-5 text-indigo-600"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M10 14L2 22M14 10l6-6M5 21l3-3"
-                          />
-                        </svg>
+                       <HandThumbDownIcon className="w-5 h-5 text-indigo-600 dark:text-indigo-300" />
+
                         <span>{blog.dislikes?.length || 0}</span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <svg
-                          className="w-5 h-5 text-indigo-600"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-4l-4 4v-4H7a2 2 0 01-2-2v-2" />
-                        </svg>
+                       <ChatBubbleLeftRightIcon className="w-5 h-5 text-indigo-600 dark:text-indigo-300" />
+
                         <span>{blog.comments?.length || 0}</span>
                       </div>
                     </div>
@@ -193,7 +225,7 @@ function ReportContainer() {
                       <img
                         src={blog.authorImg || prof}
                         alt="User Profile"
-                        className="w-9 h-9 rounded-full object-cover border-2 border-indigo-600 shadow-sm"
+                        className="w-9 h-9 rounded-full object-cover border-2 border-indigo-600 dark:border-indigo-300 shadow-sm"
                         loading="lazy"
                       />
                     </Link>
@@ -201,7 +233,7 @@ function ReportContainer() {
                 </article>
               ))
             ) : (
-              <p className="col-span-full text-center w-full text-indigo-400 text-lg font-semibold mt-20">
+              <p className="col-span-full text-center w-full text-indigo-400 dark:text-indigo-200 text-lg font-semibold mt-20">
                 No News or Event found.
               </p>
             )}
@@ -211,16 +243,20 @@ function ReportContainer() {
             <div className="flex justify-center mt-10">
               <button
                 onClick={fetchBlogs}
-                className="px-6 py-2 text-white font-medium rounded-full bg-indigo-600 hover:bg-indigo-700 transition"
+                className="px-6 py-2 text-white font-medium rounded-full bg-indigo-600 hover:bg-indigo-700 dark:hover:bg-indigo-500 transition"
                 disabled={fetchingMore}
               >
                 {fetchingMore ? "Loading..." : "Load More"}
               </button>
             </div>
+            
           )}
         </>
+        
       )}
+      
     </div>
+    
   );
 }
 

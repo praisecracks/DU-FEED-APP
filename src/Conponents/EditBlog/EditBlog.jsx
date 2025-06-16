@@ -17,7 +17,6 @@ function Edit() {
     const fetchBlog = async () => {
       const docRef = doc(db, "Blogs", id);
       const docSnap = await getDoc(docRef);
-
       if (docSnap.exists()) {
         setUserData(docSnap.data());
       } else {
@@ -71,7 +70,7 @@ function Edit() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 px-6 py-8">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 px-6 py-8 text-gray-900 dark:text-gray-100">
       {/* Top Navigation */}
       <div className="flex items-center justify-between mb-8">
         <button
@@ -100,57 +99,57 @@ function Edit() {
       </div>
 
       {/* Edit Form */}
-      <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-md p-8 grid md:grid-cols-2 gap-10">
+      <div className="max-w-5xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md p-8 grid md:grid-cols-2 gap-10">
         {/* Image Section */}
-       <div className="flex flex-col items-center gap-5">
-  {userData.image ? (
-    <img
-      style={{ height: "340px" }}
-      src={userData.image}
-      alt="Blog"
-      className="w-full object-cover rounded-md shadow border border-gray-300 hover:scale-105 transition-transform duration-200"
-    />
-  ) : (
-    <div
-      style={{ height: "340px" }}
-      className="w-full flex items-center justify-center bg-gray-200 border border-dashed border-gray-400 rounded-md text-gray-500"
-    >
-      No Image Selected
-    </div>
-  )}
+        <div className="flex flex-col items-center gap-5">
+          {userData.image ? (
+            <img
+              style={{ height: "340px" }}
+              src={userData.image}
+              alt="Blog"
+              className="w-full object-cover rounded-md shadow border border-gray-300 dark:border-gray-600 hover:scale-105 transition-transform duration-200"
+            />
+          ) : (
+            <div
+              style={{ height: "340px" }}
+              className="w-full flex items-center justify-center bg-gray-200 dark:bg-gray-700 border border-dashed border-gray-400 dark:border-gray-600 rounded-md text-gray-500"
+            >
+              No Image Selected
+            </div>
+          )}
 
-  <label
-    htmlFor="file"
-    className="cursor-pointer bg-blue-600 text-white px-5 py-2 rounded-md hover:bg-blue-700 transition w-full text-center"
-  >
-    Change Image
-  </label>
-  <input
-    id="file"
-    type="file"
-    accept="image/*"
-    onChange={handlePictureChange}
-    className="hidden"
-  />
+          <label
+            htmlFor="file"
+            className="cursor-pointer bg-blue-600 text-white px-5 py-2 rounded-md hover:bg-blue-700 transition w-full text-center"
+          >
+            Change Image
+          </label>
+          <input
+            id="file"
+            type="file"
+            accept="image/*"
+            onChange={handlePictureChange}
+            className="hidden"
+          />
 
-  {userData.image && (
-    <button
-      type="button"
-      onClick={() => {
-        setUserData((prev) => ({ ...prev, image: null }));
-        setImageFile(null);
-      }}
-      className="mt-2 w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-md transition"
-    >
-      Remove Image
-    </button>
-  )}
-</div>
+          {userData.image && (
+            <button
+              type="button"
+              onClick={() => {
+                setUserData((prev) => ({ ...prev, image: null }));
+                setImageFile(null);
+              }}
+              className="mt-2 w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-md transition"
+            >
+              Remove Image
+            </button>
+          )}
+        </div>
 
         {/* Text Section */}
         <div className="flex flex-col gap-6">
           <div>
-            <label htmlFor="title" className="block mb-2 font-semibold text-gray-700">
+            <label htmlFor="title" className="block mb-2 font-semibold text-gray-700 dark:text-gray-200">
               Edit Title
             </label>
             <input
@@ -160,13 +159,13 @@ function Edit() {
               onChange={(e) =>
                 setUserData((prev) => ({ ...prev, title: e.target.value }))
               }
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
               placeholder="Enter blog title"
             />
           </div>
 
           <div>
-            <label htmlFor="desc" className="block mb-2 font-semibold text-gray-700">
+            <label htmlFor="desc" className="block mb-2 font-semibold text-gray-700 dark:text-gray-200">
               Edit Description
             </label>
             <textarea
@@ -176,10 +175,10 @@ function Edit() {
               onChange={(e) =>
                 setUserData((prev) => ({ ...prev, desc: e.target.value }))
               }
-              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 transition resize-none"
+              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 transition resize-none"
               placeholder="Write your blog description"
             />
-            <p className="text-sm text-gray-500 mt-1 text-right">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 text-right">
               {userData.desc?.length || 0} characters
             </p>
           </div>

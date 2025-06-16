@@ -60,21 +60,22 @@ function MyBlogs() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-100 text-gray-800">
+<div className="min-h-screen flex flex-col bg-white dark:bg-[#0d1117] text-gray-800 dark:text-gray-200 transition-colors duration-300">
       {/* Header */}
-      <header className="w-full px-6 py-4 bg-white shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+<header className="w-full px-6 py-4 bg-white dark:bg-gray-900 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 transition-colors duration-300">
         <nav className="text-blue-600 font-semibold hover:underline">
           <Link to="/home">← Back to Home</Link>
         </nav>
-        <h1 className="text-2xl font-bold text-center">My Publications</h1>
+        <h1 className=" font-bold text-center text-gray-500 dark:text-gray-400 text-bold mb-2">My Publications</h1>
         <div className="relative w-full sm:w-1/3">
-          <input
+         <input
             type="text"
             placeholder="Search blogs..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-2 pl-10 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-2 pl-10 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
+
           <img src={srch} alt="Search" className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4" />
         </div>
       </header>
@@ -86,27 +87,28 @@ function MyBlogs() {
             filteredBlogs.map((blog) => (
               <div
                 key={blog.id}
-                className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 overflow-hidden flex flex-col justify-between"
+                className="bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 overflow-hidden flex flex-col justify-between"
               >
+
                 {blog.image && (
                   <img src={blog.image} alt="blog" className="w-full h-48 object-cover" />
                 )}
 
                 <div className="p-4 flex flex-col justify-between h-full">
                   <div>
-                    <h2 className="text-lg font-semibold mb-1">{blog.title}</h2>
+                    <h2 className="text-gray-500 dark:text-gray-400 text-bold mb-2">{blog.title}</h2>
                     <p style={{textAlign:"left"}}className="text-sm text-gray-500 mb-2">
                       {blog.date instanceof Timestamp
                         ? blog.date.toDate().toLocaleString()
                         : "No Date Available"}
                     </p>
-                    <p style={{textAlign:"left"}} className={`text-sm text-gray-700 mb-2 ${expanded[blog.id] ? "" : "line-clamp-4"}`}>
+                    <p style={{textAlign:"left"}} className={`text-sm text-gray-700 dark:text-gray-500 mb-2 ${expanded[blog.id] ? "" : "line-clamp-4"}`}>
                       {blog.desc}
                     </p>
                     <span
                     style={{textAlign:"left"}}
                       onClick={() => toggleReadMore(blog.id)}
-                      className="text-sm text-blue-900 cursor-pointer"
+                      className="text-sm text-blue-900 dark:text-blue-400 cursor-pointer"
                     >
                       {expanded[blog.id] ? "Read less" : "Read more"}
                     </span>

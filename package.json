@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@reduxjs/toolkit": "^2.2.7",
     "caniuse-lite": "^1.0.30001706",
     "chart.js": "^4.4.6",
+    "emoji-picker-react": "^4.12.2",
     "firebase": "^11.0.1",
     "flutterwave-react-v3": "^1.0.7",
     "framer-motion": "^11.18.2",

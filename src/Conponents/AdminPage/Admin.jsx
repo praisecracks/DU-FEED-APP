@@ -175,11 +175,13 @@ const enableUser = async (userId) => {
 
 
   return (
-    <div style={{ padding: "20px", maxWidth: "1200px", margin: "0 auto" }}>
+    <div style={{ padding: "20px", maxWidth: "1200px", margin: "0 auto" }} className="     w-full px-6 pt-28 pb-12 bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 min-h-screen transition-colors duration-100
+"  >
 <div className="flex justify-center items-center h-full">
   <img src={domi} alt="" className="w-20 h-20" />
 </div>
-      <h1 style={{ textAlign: "center", marginBottom: "20px" }}>Admin Dashboard</h1>
+      <h1 className="max-w-screen bg-gray-50 dark:bg-gray-900 transition-colors"
+ style={{ textAlign: "center", marginBottom: "20px" }}>Admin Dashboard</h1>
 
       <nav
         style={{
@@ -268,6 +270,7 @@ const enableUser = async (userId) => {
                       padding: "0 4px",
                       border: "2px solid white",
                     }}
+                    
               > {pendingCount}</span>
             )}
 
@@ -309,6 +312,7 @@ const enableUser = async (userId) => {
             gap: "20px",
             marginTop: "20px",
           }}
+          
         >
           {filteredPosts.length > 0 ? (
             filteredPosts.map((post) => (
@@ -323,6 +327,7 @@ const enableUser = async (userId) => {
                   textAlign: "center",
                   background: "#fff",
                 }}
+                
               >
                 {post.image ? (
                   <img
@@ -334,6 +339,7 @@ const enableUser = async (userId) => {
                       objectFit: "cover",
                       borderRadius: "5px",
                     }}
+                    
                   />
                 ) : (
                   <div
@@ -348,6 +354,7 @@ const enableUser = async (userId) => {
                       justifyContent: "center",
                       fontStyle: "italic",
                     }}
+                    className="max-w-screen bg-gray-50 dark:bg-gray-900 transition-colors"
                   >
                     This is a local news
                   </div>
@@ -367,6 +374,7 @@ const enableUser = async (userId) => {
                         borderRadius: "4px",
                         cursor: "pointer",
                       }}
+                      className="max-w-screen bg-gray-50 dark:bg-gray-900 transition-colors"
                       onClick={() => setSelectedPost(post)}
                     >
                       View Content
@@ -455,6 +463,7 @@ const enableUser = async (userId) => {
             alignItems: "center",
             zIndex: "999",
           }}
+
         >
          <div
   style={{
@@ -467,6 +476,7 @@ const enableUser = async (userId) => {
     textAlign: "center",
     overflowY: "scroll",
   }}
+
 >
   <h2>Post Details</h2>
 
@@ -481,6 +491,8 @@ const enableUser = async (userId) => {
         borderRadius: "8px",
         marginBottom: "20px",
       }}
+           className="max-w-screen bg-gray-50 dark:bg-gray-900 transition-colors"
+
     />
   )}
 
@@ -544,7 +556,7 @@ const enableUser = async (userId) => {
 
 {showType === "users" && (
 
-  <section>
+  <section >
   <h2>Registered Users</h2>
   <div
     style={{
@@ -554,6 +566,8 @@ const enableUser = async (userId) => {
       marginTop: "20px",
       position: "relative",
     }}
+    
+    
     >
     {users.map((user) => (
       <div
@@ -568,6 +582,9 @@ const enableUser = async (userId) => {
         justifyContent: "center",
         alignItems: "center",
       }}
+          className="max-w-screen bg-gray-50 dark:bg-gray-900 transition-colors"
+
+      
       >
           <div
           style={{
@@ -576,6 +593,7 @@ const enableUser = async (userId) => {
             alignItems: "center",
             marginBottom: "10px",
           }}
+        
           >
           <img
             src={user.authorImg || admin}
