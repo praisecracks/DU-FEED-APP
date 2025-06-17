@@ -259,7 +259,7 @@ function UserBlog() {
                     </small>
                   </div>
                   <div className="flex justify-between items-center mt-2 text-gray-600 dark:text-gray-300 text-sm bg-transparent">
-                <p className="text-sm mt-1 whitespace-pre-wrap text-gray-800 dark:text-gray-200 bg-transparent">
+                <p className="text-left text-sm mt-1 whitespace-pre-wrap text-gray-800 dark:text-gray-200 bg-transparent">
                   {msg.text}
                 </p>
                 <div className="flex items-center gap-3">
