@@ -96,7 +96,7 @@ const toggleTheme = () => {
   return (
 <div className="w-full px-6 pt-28 pb-12 bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 min-h-screen transition-colors duration-500">
     
-    <div className="w-full flex justify-between items-center gap-4 flex-wrap mb-3 mt-[-10px]">
+    <div className="w-full flex justify-between items-center gap-4 flex-wrap mb-6 mt-[-20px]">
   <div className="flex-grow max-w-3xl mx-auto text-gray-600">
     <input
       type="text"
