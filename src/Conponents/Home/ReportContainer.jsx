@@ -231,11 +231,7 @@ const toggleTheme = () => {
 
 
 
-<div
-  className={`flex items-center gap-2 font-semibold text-sm tracking-wide mt-[-20px] mb-4 font-mono text-left ${
-    isUpcoming ? "text-indigo-600 dark:text-indigo-400" : "text-gray-500 dark:text-gray-400"
-  }`}
->
+<div className="flex items-center gap-2 font-semibold text-sm tracking-wide mt-[-20px] text-left text-gray-500 dark:text-gray-400 font-mono mb-4">
   {blog.date ? (() => {
     const now = new Date();
     const blogDate = new Date(blog.date.seconds * 1000);
@@ -249,9 +245,7 @@ const toggleTheme = () => {
         </>
       );
     } else {
-      return (
-        <></>
-      )
+      <></>
     }
   })() : "Date not included"}
 </div>
