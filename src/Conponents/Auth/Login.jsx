@@ -24,10 +24,11 @@ function Login() {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
-  const isValidMatric = (matric) => {
-    const matricRegex = /^DU\/\d{2}\/\d{3}$/i;
-    return matricRegex.test(matric);
-  };
+const isValidMatric = (matric) => {
+  const matricRegex = /^DU\d{4}$/i;
+  return matricRegex.test(matric);
+};
+
 
   const HandleSignUP = async () => {
     if (!isValidMatric(matricNo)) {
