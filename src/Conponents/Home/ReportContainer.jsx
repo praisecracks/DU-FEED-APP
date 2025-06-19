@@ -5,6 +5,8 @@ import { truncate } from "../../Context/data";
 import { Link } from "react-router-dom";
 import { db } from "../../Context/Firebase";
 import { SunIcon, MoonIcon } from "@heroicons/react/24/solid";
+import { FaHourglassHalf } from "react-icons/fa";
+
 import {
   HandThumbUpIcon,
   HandThumbDownIcon,
@@ -29,6 +31,8 @@ function ReportContainer() {
   const [fetchingMore, setFetchingMore] = useState(false);
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const [searchTerm, setSearchTerm] = useState("");
+  const [countdowns, setCountdowns] = useState({});
+
   
 
 useEffect(() => {
@@ -92,6 +96,35 @@ const toggleTheme = () => {
   const visibleBlogs = isAdmin
     ? data
     : data.filter((blog) => blog.isVerified === true);
+
+
+    useEffect(() => {
+  const interval = setInterval(() => {
+    const updatedCountdowns = {};
+
+    data.forEach((blog) => {
+      if (blog?.date?.seconds) {
+        const now = new Date();
+        const blogDate = new Date(blog.date.seconds * 1000);
+        const diff = blogDate - now;
+
+        if (diff > 0) {
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+          const minutes = Math.floor((diff / (1000 * 60)) % 60);
+          const seconds = Math.floor((diff / 1000) % 60);
+
+          updatedCountdowns[blog.id] = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+      }
+    });
+
+    setCountdowns(updatedCountdowns);
+  }, 1000);
+
+  return () => clearInterval(interval);
+}, [data]);
+
 
   return (
 <div className="w-full px-6 pt-28 pb-12 bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 min-h-screen transition-colors duration-500">
@@ -179,7 +212,7 @@ const toggleTheme = () => {
                     </div>
                   ) : (
                     <div className="flex flex-col items-center justify-center h-30 bg-indigo-100 dark:bg-indigo-800 rounded-t-3xl text-indigo-600 dark:text-indigo-200 p-6 text-center">
-                      <h2 className="text-2xl font-extrabold mb-2 tracking-tight h-40">
+                      <h2 className="text-2xl font-extrabold mb-2 tracking-tight h-40 text-gray-500 dark:text-gray-400">
                         DU Local News
                       </h2>
                       <p className="text-lg font-light mt-[-20px]">
@@ -195,6 +228,30 @@ const toggleTheme = () => {
                     <p className="text-sm text-left text-gray-700 dark:text-gray-300 flex-grow mb-6 line-clamp-4">
                       {truncate(blog.desc || "", 150)}
                     </p>
+
+
+
+<div className="flex items-center gap-2 font-semibold text-sm tracking-wide mt-[-20px] text-left text-gray-500 dark:text-gray-400 font-mono mb-4">
+  {blog.date ? (() => {
+    const now = new Date();
+    const blogDate = new Date(blog.date.seconds * 1000);
+    const isUpcoming = blogDate > now;
+
+    if (isUpcoming) {
+      return (
+        <>
+          <FaHourglassHalf className="animate-spin text-indigo-600 dark:text-indigo-400" />
+          Upcoming - {countdowns[blog.id] || "tracking..."}
+        </>
+      );
+    } else {
+      <></>
+    }
+  })() : "Date not included"}
+</div>
+
+
+
                     <Link
                       to={`/blog/${blog.id}`}
                       className="inline-block self-start px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full font-semibold shadow-lg hover:shadow-indigo-500/40 hover:scale-105 transform transition duration-300"
