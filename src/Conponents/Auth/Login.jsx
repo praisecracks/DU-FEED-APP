@@ -32,7 +32,7 @@ const isValidMatric = (matric) => {
 
   const HandleSignUP = async () => {
     if (!isValidMatric(matricNo)) {
-      toast.error("Invalid Matric Number. Use format: DU/21/001");
+      toast.error("Invalid Matric Number. Use format: DU2101");
       return;
     }
 
@@ -133,7 +133,7 @@ const isValidMatric = (matric) => {
                         name="matric"
                         id="matric"
                         onChange={(e) => setMatricNo(e.target.value)}
-                        placeholder="Matric number in format DU/21/001"
+                        placeholder="Matric number in format DU/21/01"
                         required
                       />
                     </div>
