@@ -186,8 +186,7 @@ function Profile() {
       
       </div>
 
-      <div className="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-xl flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12">
-        <div className="relative group">
+<div className="bg-white/60 dark:bg-gray-800/40 backdrop-blur-md p-8 rounded-3xl shadow-xl flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12">        <div className="relative group">
           <img
             className="w-36 h-36 md:w-40 md:h-40 rounded-full object-cover border-4 border-blue-500 shadow-lg"
             src={userData.profilePicture}
@@ -219,7 +218,7 @@ function Profile() {
             <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white">{userData.name}</h2>
             <span className="bg-green-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-sm select-none">Active</span>
           </div>
-          <p className="mt-1 text-gray-600 dark:text-gray-300 break-words">{userData.email}</p>
+          <p className="mt-1 text-gray-600 dark:text-gray-300 break-words text-left">{userData.email}</p>
 
           {isEditing ? (
             <div className="mt-6 space-y-4">
@@ -242,7 +241,7 @@ function Profile() {
               <div className="flex justify-end gap-4">
                 <button
                   onClick={() => setIsEditing(false)}
-                  className="px-6 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                  className="px-6 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-300 dark:text-gray-100 hover:bg-gray-600 dark:hover:bg-gray-600 transition"
                 >
                   Cancel
                 </button>
@@ -296,7 +295,7 @@ function Profile() {
             </button>
             <button
               onClick={handleLogOut}
-              className="flex-1 py-3 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+              className="flex-1 py-3 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-400 dark:text-gray-200 hover:bg-gray-800 dark:hover:bg-gray-700 transition"
             >
               Log Out
             </button>
