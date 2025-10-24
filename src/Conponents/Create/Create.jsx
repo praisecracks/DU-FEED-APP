@@ -5,12 +5,10 @@ import { useUser } from "../../Context/UserContext";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import defaultImage from "../../Asset/Book study.jpg";
 import Header from "../../Containers/Header/Header";
 
 function Create() {
   const [imageURL, setImageURL] = useState(null);
-  const [isDefaultImage, setIsDefaultImage] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [blogTitle, setBlogTitle] = useState("");
   const [blogText, setBlogText] = useState("");
@@ -27,7 +25,6 @@ function Create() {
       const reader = new FileReader();
       reader.onload = () => setImageURL(reader.result);
       reader.readAsDataURL(selectedFile);
-      setIsDefaultImage(false);
     }
   };
 
@@ -39,15 +36,14 @@ function Create() {
       const reader = new FileReader();
       reader.onload = () => setImageURL(reader.result);
       reader.readAsDataURL(droppedFile);
-      setIsDefaultImage(false);
     }
   };
 
   const handleImageUpload = async () => {
-    if (!file) return isDefaultImage ? defaultImage : null;
+    if (!file) return null;
 
     const storage = getStorage();
-    const storageRef = ref(storage, `blogs/${file.name}`);
+    const storageRef = ref(storage, `blogs/${file.name}_${Date.now()}`);
     const snapshot = await uploadBytes(storageRef, file);
     return await getDownloadURL(snapshot.ref);
   };
@@ -63,8 +59,7 @@ function Create() {
       }
 
       const imageUrl = await handleImageUpload();
-      const now = new Date();
-      const scheduled = scheduledDate ? new Date(scheduledDate) : now;
+      const scheduled = scheduledDate ? new Date(scheduledDate) : new Date();
 
       const blog = {
         image: imageUrl || null,
@@ -73,7 +68,7 @@ function Create() {
         authId: currentUser?.uid || "unknown",
         authorName: currentUser?.displayName || "Unknown",
         authorImg: currentUser?.photoURL || null,
-        date: Timestamp.fromDate(scheduled), // ✅ Corrected here
+        date: Timestamp.fromDate(scheduled),
         isVerified: false,
         likes: [],
         dislikes: [],
@@ -83,8 +78,8 @@ function Create() {
       };
 
       await addDoc(collection(db, "Blogs"), blog);
-      toast.success("Uploaded! Wait for admin verification.");
-      navigate("/");
+      toast.success("Blog uploaded! Wait for admin verification.");
+      navigate("/my-blogs");
     } catch (error) {
       console.error(error.message);
       toast.error("Failed to upload blog. Please try again.");
@@ -104,7 +99,7 @@ function Create() {
 
         {/* Drag and Drop Area */}
         <div
-          className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 flex flex-col items-center justify-center bg-white dark:bg-gray-800 cursor-pointer hover:border-indigo-400 transition"
+          className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 flex flex-col items-center justify-center bg-white dark:bg-gray-800 cursor-pointer hover:border-indigo-400 hover:bg-gray-50 dark:hover:bg-gray-700 transition"
           onDrop={handleDrop}
           onDragOver={(e) => e.preventDefault()}
           onClick={() => fileInputRef.current.click()}
@@ -117,9 +112,9 @@ function Create() {
             className="hidden"
           />
 
-          {imageURL || isDefaultImage ? (
+          {imageURL ? (
             <img
-              src={imageURL || defaultImage}
+              src={imageURL}
               alt="Selected Preview"
               className="h-60 w-full object-cover rounded-md mb-4"
             />
@@ -138,20 +133,11 @@ function Create() {
                   d="M7 16V4m0 0H3m4 0h4m1 16h6m-3-6h2a2 2 0 002-2V4a2 2 0 00-2-2h-2m-3 6H4a2 2 0 00-2 2v10a2 2 0 002 2h6a2 2 0 002-2v-6z"
                 />
               </svg>
-              <p className="text-gray-500 dark:text-gray-400">Drag & Drop or Click to upload an image</p>
+              <p className="text-gray-500 dark:text-gray-400">
+                Drag & Drop or Click to upload an image
+              </p>
             </div>
           )}
-
-          {/* Default Image Checkbox */}
-          <div className="mt-4 flex items-center space-x-2">
-            <input
-              type="checkbox"
-              checked={isDefaultImage}
-              onChange={(e) => setIsDefaultImage(e.target.checked)}
-              className="form-checkbox h-4 w-4 text-indigo-600"
-            />
-            <label className="text-gray-600 dark:text-gray-300 text-sm">Use Default Image</label>
-          </div>
         </div>
 
         {/* Blog Form */}
@@ -184,7 +170,6 @@ function Create() {
             ></textarea>
           </div>
 
-          {/* 🔥 Schedule Picker */}
           <div>
             <label htmlFor="schedule" className="block text-gray-700 dark:text-gray-200 font-semibold mb-2">
               Schedule Publish (Optional)
